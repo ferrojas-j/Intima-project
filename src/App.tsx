@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { supabase } from './lib/supabase';
 import { createConversation, sendMessage } from './lib/customgpt';
 import { Send, Save, BookOpen, MessageSquare, Loader2, Paperclip, Trash2, CheckCircle, MessageCircle, FileIcon, RefreshCcw } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import './index.css';
 
 interface Message {
@@ -233,7 +235,11 @@ function App() {
         <div className="chat-messages">
           {messages.map((msg) => (
             <div key={msg.id} className={`message ${msg.sender}`}>
-              <p>{msg.text}</p>
+              <div className="markdown-content">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {msg.text}
+                </ReactMarkdown>
+              </div>
             </div>
           ))}
           {isLoading && (
