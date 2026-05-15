@@ -35,7 +35,7 @@ interface Annotation {
 function App() {
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([
-    { id: '1', sender: 'bot', text: '¡Hola! Soy el asistente virtual de INTIMO HOTELES. ¿En qué puedo ayudarte hoy?' }
+    { id: '1', sender: 'bot', text: 'Hola, este es el ambiente de prueba del chatbot para Intima Hoteles. Comienza como quieras para iniciar las pruebas' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -119,7 +119,7 @@ function App() {
       const id = await createConversation('Prueba MVP INTIMO');
       setSessionId(id);
       setMessages([
-        { id: Date.now().toString(), sender: 'bot', text: '¡Hola! Soy el asistente virtual de INTIMO HOTELES. ¿En qué puedo ayudarte hoy?' }
+        { id: Date.now().toString(), sender: 'bot', text: 'Hola, este es el ambiente de prueba del chatbot para Intima Hoteles. Comienza como quieras para iniciar las pruebas' }
       ]);
     } catch (err) {
       console.error("Error creating new session:", err);
