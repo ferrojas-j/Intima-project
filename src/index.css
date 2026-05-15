@@ -171,6 +171,40 @@ body {
   cursor: not-allowed;
 }
 
+.btn-reset-chat {
+  background: var(--accent-gold-dim);
+  color: var(--accent-gold);
+  border: 1px solid var(--accent-gold);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+}
+
+.btn-reset-chat:hover:not(:disabled) {
+  background: var(--accent-gold);
+  color: #000;
+}
+
+.btn-reset-chat:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .reset-text {
+    display: none;
+  }
+  .btn-reset-chat {
+    padding: 0.5rem;
+  }
+}
+
 /* Notebook Styles */
 .notes-container {
   flex: 1;

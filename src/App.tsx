@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { supabase } from './lib/supabase';
 import { createConversation, sendMessage } from './lib/customgpt';
-import { Send, Save, BookOpen, MessageSquare, Loader2, Paperclip, Trash2, CheckCircle, MessageCircle, FileIcon } from 'lucide-react';
+import { Send, Save, BookOpen, MessageSquare, Loader2, Paperclip, Trash2, CheckCircle, MessageCircle, FileIcon, RefreshCcw } from 'lucide-react';
 import './index.css';
 
 interface Message {
@@ -110,6 +110,23 @@ function App() {
     }
   };
 
+  const handleResetChat = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
+    try {
+      const id = await createConversation('Prueba MVP INTIMO');
+      setSessionId(id);
+      setMessages([
+        { id: Date.now().toString(), sender: 'bot', text: '¡Hola! Soy el asistente virtual de INTIMO HOTELES. ¿En qué puedo ayudarte hoy?' }
+      ]);
+    } catch (err) {
+      console.error("Error creating new session:", err);
+      alert("Error al reiniciar el chat.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setSelectedFiles(Array.from(e.target.files));
@@ -197,9 +214,20 @@ function App() {
     <div className="app-container">
       {/* Chat Panel */}
       <div className="panel">
-        <div className="panel-header">
-          <MessageSquare size={24} color="var(--accent-gold)" />
-          <h2>INTIMO Chatbot MVP</h2>
+        <div className="panel-header" style={{ justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <MessageSquare size={24} color="var(--accent-gold)" />
+            <h2>INTIMO Chatbot MVP</h2>
+          </div>
+          <button 
+            onClick={handleResetChat} 
+            className="btn-reset-chat" 
+            title="Nuevo Chat / Reiniciar"
+            disabled={isLoading}
+          >
+            <RefreshCcw size={16} />
+            <span className="reset-text">Nuevo Chat</span>
+          </button>
         </div>
         
         <div className="chat-messages">
